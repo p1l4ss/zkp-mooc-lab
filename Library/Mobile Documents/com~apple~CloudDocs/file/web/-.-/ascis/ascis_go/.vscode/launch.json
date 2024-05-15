@@ -1,0 +1,13 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "C/C++ Runner: Debug Session",
+      "type": "lldb",
+      "request": "launch",
+      "args": [],
+      "cwd": "/Users/dangminhduc/Library/Mobile Documents/com~apple~CloudDocs/CTF/web/ascis_go",
+      "program": "/Users/dangminhduc/Library/Mobile Documents/com~apple~CloudDocs/CTF/web/ascis_go/build/Debug/outDebug"
+    }
+  ]
+}

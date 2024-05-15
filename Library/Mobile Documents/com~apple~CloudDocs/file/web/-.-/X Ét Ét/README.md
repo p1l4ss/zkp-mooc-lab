@@ -1,0 +1,1 @@
+run `bash build_docker.sh` for start your docker in local.

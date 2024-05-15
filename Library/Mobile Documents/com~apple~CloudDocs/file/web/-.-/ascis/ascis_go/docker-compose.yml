@@ -1,0 +1,49 @@
+version: '3.5'
+
+services:
+  web:
+    build: ./
+    image: ascis-laravel
+    container_name: ascis_laravel_web
+    ports:
+      - "80:80"
+    depends_on:
+      - redis
+    links:
+      - redis
+    networks:
+      - mynetwork
+    restart: always
+    healthcheck:
+      test: ["CMD", "curl", "--silent", "-X", "GET", "localhost:80"]
+      interval: 60s
+      timeout: 3s
+      retries: 30
+  redis:
+    image: redis:alpine
+    container_name: ascis_redis
+    command: redis-server --appendonly yes --requirepass "ASCISRedis"
+    expose:
+      - "6379"
+    networks:
+      mynetwork:
+        ipv4_address: 172.18.0.2
+    restart: always
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping", "-a", "ASCISRedis"]
+      interval: 60s
+      timeout: 3s
+      retries: 30
+    volumes:
+      - redis-data:/data
+
+networks:
+  mynetwork:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.18.0.0/16
+
+volumes:
+  redis-data:
+    driver: local
